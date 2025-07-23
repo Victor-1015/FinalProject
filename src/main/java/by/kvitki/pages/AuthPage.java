@@ -15,7 +15,7 @@ public class AuthPage {
     @FindBy(className = "form-error")
     private WebElement errorMessage;
     @FindBy(name = "login")
-    private WebElement emailInput; // Поле email используется в обеих формах
+    private WebElement emailInput;
 
     @FindBy(name = "password")
     private WebElement loginPasswordInput;
@@ -31,34 +31,22 @@ public class AuthPage {
     @FindBy(xpath = "//div[contains(@class, 'auth-form__body--register')]//button[@type='submit']")
     private WebElement registrationSubmitButton;
 
-
     public AuthPage(WebDriver driver) {
         this.driver = driver;
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         PageFactory.initElements(driver, this);
     }
 
-    /**
-     * НОВЫЙ МЕТОД
-     * Переключает на вкладку регистрации
-     */
     public void switchToRegistrationTab() {
         wait.until(ExpectedConditions.elementToBeClickable(registrationTab)).click();
     }
 
-    /**
-     * Старый метод для логина
-     */
     public void login(String email, String password) {
         emailInput.sendKeys(email);
         loginPasswordInput.sendKeys(password);
         loginSubmitButton.click();
     }
 
-    /**
-     * НОВЫЙ МЕТОД
-     * Заполняет и отправляет форму регистрации
-     */
     public void register(String email, String password, String passwordRepeat) {
         emailInput.sendKeys(email);
         registrationPasswordInput.sendKeys(password);
@@ -66,9 +54,6 @@ public class AuthPage {
         registrationSubmitButton.click();
     }
 
-    /**
-     * Старый метод для получения текста ошибки
-     */
     public String getErrorMessageText() {
         wait.until(ExpectedConditions.visibilityOf(errorMessage));
         return errorMessage.getText();

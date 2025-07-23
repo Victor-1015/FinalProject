@@ -35,16 +35,12 @@ public class HomePage {
     }
 
     public HomePage acceptCookies() {
-        System.out.println("Пытаемся нажать на кнопку cookie с помощью JavaScript...");
         try {
             wait.until(ExpectedConditions.visibilityOf(acceptCookiesButton));
-
             JavascriptExecutor executor = (JavascriptExecutor)driver;
             executor.executeScript("arguments[0].click();", acceptCookiesButton);
-
-            System.out.println("Клик с помощью JavaScript по кнопке cookie выполнен.");
         } catch (Exception e) {
-            System.out.println("Не удалось нажать на кнопку cookie. Ошибка: " + e.getMessage());
+            // Игнорируем ошибку, если баннера нет
         }
         return this;
     }
@@ -55,6 +51,6 @@ public class HomePage {
 
     public AuthPage clickProfileIcon() {
         wait.until(ExpectedConditions.elementToBeClickable(profileIcon)).click();
-        return new AuthPage(driver); // или AuthPage
+        return new AuthPage(driver);
     }
 }
